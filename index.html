@@ -2,15 +2,14 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Berita Terbaru</title>
 
-    <!-- ==============================
-         OPEN GRAPH UNTUK FACEBOOK
-         ============================== -->
+    <!-- =========================
+         FACEBOOK OPEN GRAPH
+         ========================= -->
 
     <meta property="og:type" content="website">
 
@@ -18,15 +17,16 @@
           content="Berita Terbaru">
 
     <meta property="og:description"
-          content="Baca informasi selengkapnya di sini.">
+          content="Simak informasi selengkapnya di sini.">
 
+    <!-- Gambar preview Facebook -->
     <!--
-    GANTI USERNAME-GITHUB dengan username GitHub kamu
-    GANTI NAMA-REPO dengan nama repository kamu
+    GANTI USERNAME dan NAMA-REPO
+    sesuai GitHub kamu
     -->
 
     <meta property="og:image"
-          content="https://USERNAME-GITHUB.github.io/NAMA-REPO/berita.jpg">
+          content="https://USERNAME.github.io/NAMA-REPO/berita.jpg">
 
     <meta property="og:image:width"
           content="1200">
@@ -35,58 +35,37 @@
           content="630">
 
     <meta property="og:url"
-          content="https://USERNAME-GITHUB.github.io/NAMA-REPO/">
-
-    <!-- ==============================
-         TWITTER / SOCIAL PREVIEW
-         ============================== -->
-
-    <meta name="twitter:card"
-          content="summary_large_image">
-
-    <meta name="twitter:title"
-          content="Berita Terbaru">
-
-    <meta name="twitter:description"
-          content="Baca informasi selengkapnya di sini.">
-
-    <meta name="twitter:image"
-          content="https://USERNAME-GITHUB.github.io/NAMA-REPO/berita.jpg">
+          content="https://USERNAME.github.io/NAMA-REPO/">
 
 
-    <!-- ==============================
+    <!-- =========================
          REDIRECT OTOMATIS
-         ============================== -->
+         ========================= -->
+
+    <meta http-equiv="refresh"
+          content="0; url=https://s.shopee.co.id/AAHGAI5x82">
+
 
     <script>
-        const target =
-            "https://s.shopee.co.id/8fSSLq5xJr";
-
-        // Langsung redirect
-        window.location.replace(target);
+        // Redirect utama
+        window.location.replace(
+            "https://s.shopee.co.id/AAHGAI5x82"
+        );
     </script>
-
-
-    <!-- Fallback tambahan -->
-    <meta http-equiv="refresh"
-          content="0;url=https://s.shopee.co.id/8fSSLq5xJr">
 
 </head>
 
-
 <body>
 
-    <!--
-    Halaman ini hanya muncul sangat singkat
-    sebelum browser melakukan redirect.
-    -->
+    <!-- Halaman ini hanya menjadi fallback
+         jika redirect tidak langsung berjalan -->
 
     <div style="
         width:100%;
         height:100vh;
         display:flex;
-        align-items:center;
         justify-content:center;
+        align-items:center;
         font-family:Arial,sans-serif;
         text-align:center;
     ">
@@ -103,9 +82,7 @@
                 "
             >
 
-            <p>
-                Membuka halaman...
-            </p>
+            <p>Membuka halaman...</p>
 
         </div>
 
