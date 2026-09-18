@@ -1,17 +1,20 @@
-```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>Berita Terbaru</title>
 
-    <!-- =========================
-         FACEBOOK OPEN GRAPH
-         ========================= -->
+    <!-- ==========================================
+         FACEBOOK / OPEN GRAPH
+    =========================================== -->
 
-    <meta property="og:type" content="website">
+    <meta property="og:type"
+          content="website">
 
     <meta property="og:title"
           content="Berita Terbaru">
@@ -19,14 +22,14 @@
     <meta property="og:description"
           content="Simak informasi selengkapnya di sini.">
 
-    <!-- Gambar preview Facebook -->
-    <!--
-    GANTI USERNAME dan NAMA-REPO
-    sesuai GitHub kamu
-    -->
-
     <meta property="og:image"
-          content="https://USERNAME.github.io/NAMA-REPO/berita.jpg">
+          content="https://amrull1802-rgb.github.io/shoppe/berita.jpg">
+
+    <meta property="og:image:secure_url"
+          content="https://amrull1802-rgb.github.io/shoppe/berita.jpg">
+
+    <meta property="og:image:type"
+          content="image/jpeg">
 
     <meta property="og:image:width"
           content="1200">
@@ -35,59 +38,297 @@
           content="630">
 
     <meta property="og:url"
-          content="https://USERNAME.github.io/NAMA-REPO/">
+          content="https://amrull1802-rgb.github.io/shoppe/">
+
+    <meta property="og:site_name"
+          content="Berita Terbaru">
 
 
-    <!-- =========================
-         REDIRECT OTOMATIS
-         ========================= -->
+    <!-- ==========================================
+         TWITTER
+    =========================================== -->
 
-    <meta http-equiv="refresh"
-          content="0; url=https://s.shopee.co.id/AAHGAI5x82">
+    <meta name="twitter:card"
+          content="summary_large_image">
+
+    <meta name="twitter:title"
+          content="Berita Terbaru">
+
+    <meta name="twitter:description"
+          content="Simak informasi selengkapnya di sini.">
+
+    <meta name="twitter:image"
+          content="https://amrull1802-rgb.github.io/shoppe/berita.jpg">
 
 
-    <script>
-        // Redirect utama
-        window.location.replace(
-            "https://s.shopee.co.id/AAHGAI5x82"
-        );
-    </script>
+    <!-- ==========================================
+         STYLE
+    =========================================== -->
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100%;
+            background: #ffffff;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .page {
+            width: 100%;
+            min-height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 20px;
+        }
+
+        .content {
+            width: 100%;
+            max-width: 700px;
+            text-align: center;
+        }
+
+        .news-image {
+            display: block;
+            width: 100%;
+            max-width: 700px;
+            height: auto;
+            margin: 0 auto;
+        }
+
+        .loading {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #777777;
+        }
+
+        .button {
+            display: none;
+
+            margin-top: 20px;
+            padding: 12px 25px;
+
+            background: #ee4d2d;
+            color: #ffffff;
+
+            text-decoration: none;
+            border-radius: 6px;
+
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+    </style>
 
 </head>
 
+
 <body>
 
-    <!-- Halaman ini hanya menjadi fallback
-         jika redirect tidak langsung berjalan -->
 
-    <div style="
-        width:100%;
-        height:100vh;
-        display:flex;
-        justify-content:center;
-        align-items:center;
-        font-family:Arial,sans-serif;
-        text-align:center;
-    ">
+    <!-- ==========================================
+         GAMBAR
+    =========================================== -->
 
-        <div>
+    <main class="page">
+
+        <div class="content">
 
             <img
                 src="berita.jpg"
                 alt="Berita"
-                style="
-                    max-width:90%;
-                    max-height:300px;
-                    object-fit:contain;
-                "
+                class="news-image"
             >
 
-            <p>Membuka halaman...</p>
+            <div
+                id="loading"
+                class="loading">
+
+                Membuka halaman...
+
+            </div>
+
+            <a
+                id="openShopee"
+                class="button"
+                href="https://s.shopee.co.id/AAHGAI5x82">
+
+                Buka Shopee
+
+            </a>
 
         </div>
 
-    </div>
+    </main>
+
+
+    <!-- ==========================================
+         JAVASCRIPT
+    =========================================== -->
+
+    <script>
+
+        (function () {
+
+            /*
+             * LINK SHOPEE
+             */
+
+            const SHOPEE_URL =
+                "https://s.shopee.co.id/AAHGAI5x82";
+
+
+            /*
+             * USER AGENT
+             */
+
+            const ua =
+                navigator.userAgent ||
+                navigator.vendor ||
+                window.opera ||
+                "";
+
+
+            /*
+             * FACEBOOK
+             */
+
+            const isFacebook =
+                /FBAN|FBAV|FB_IAB|FBIOS|FB4A|FB4i/i
+                .test(ua);
+
+
+            /*
+             * iOS
+             */
+
+            const isIOS =
+                /iPhone|iPad|iPod/i
+                .test(ua);
+
+
+            /*
+             * ANDROID
+             */
+
+            const isAndroid =
+                /Android/i
+                .test(ua);
+
+
+            /*
+             * ======================================
+             * FACEBOOK + iOS
+             * ======================================
+             */
+
+            if (isFacebook && isIOS) {
+
+                window.location.href =
+                    SHOPEE_URL;
+
+                setTimeout(function () {
+
+                    window.location.assign(
+                        SHOPEE_URL
+                    );
+
+                }, 500);
+
+                setTimeout(function () {
+
+                    window.location.replace(
+                        SHOPEE_URL
+                    );
+
+                }, 1200);
+
+                return;
+            }
+
+
+            /*
+             * ======================================
+             * ANDROID
+             * ======================================
+             */
+
+            if (isAndroid) {
+
+                setTimeout(function () {
+
+                    window.location.replace(
+                        SHOPEE_URL
+                    );
+
+                }, 100);
+
+                return;
+            }
+
+
+            /*
+             * ======================================
+             * BROWSER BIASA
+             * ======================================
+             */
+
+            setTimeout(function () {
+
+                window.location.replace(
+                    SHOPEE_URL
+                );
+
+            }, 100);
+
+        })();
+
+
+        /*
+         * ==========================================
+         * FALLBACK
+         * ==========================================
+         */
+
+        setTimeout(function () {
+
+            const button =
+                document.getElementById(
+                    "openShopee"
+                );
+
+            const loading =
+                document.getElementById(
+                    "loading"
+                );
+
+            if (button) {
+
+                button.style.display =
+                    "inline-block";
+            }
+
+            if (loading) {
+
+                loading.innerHTML =
+                    "Jika Shopee belum terbuka, tekan tombol di bawah.";
+
+            }
+
+        }, 3000);
+
+    </script>
+
 
 </body>
 </html>
-```
