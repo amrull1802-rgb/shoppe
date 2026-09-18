@@ -5,10 +5,18 @@
 
     <title>Informasi Produk</title>
 
-    <meta property="og:title" content="Informasi Produk">
+    <meta name="description"
+          content="Lihat informasi produk selengkapnya.">
+
+    <!-- Facebook / Open Graph -->
+    <meta property="og:title"
+          content="Informasi Produk">
+
     <meta property="og:description"
-          content="Lihat informasi produk selengkapnya di Shopee.">
-    <meta property="og:type" content="website">
+          content="Lihat informasi produk selengkapnya.">
+
+    <meta property="og:type"
+          content="website">
 
     <meta property="og:image"
           content="https://amrull1802-rgb.github.io/shoppe/berita.jpg">
@@ -16,26 +24,40 @@
     <meta property="og:image:secure_url"
           content="https://amrull1802-rgb.github.io/shoppe/berita.jpg">
 
-    <meta property="og:image:type" content="image/jpeg">
-    <meta property="og:image:width" content="1024">
-    <meta property="og:image:height" content="1024">
+    <meta property="og:image:type"
+          content="image/jpeg">
+
+    <meta property="og:image:width"
+          content="1024">
+
+    <meta property="og:image:height"
+          content="1024">
 
     <meta property="og:url"
           content="https://amrull1802-rgb.github.io/shoppe/">
 
-    <!-- Redirect setelah 1 detik -->
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <!-- Redirect tanpa delay -->
     <meta http-equiv="refresh"
-          content="1;url=https://s.shopee.co.id/AAHFt6ZZFg">
+          content="0;url=https://s.shopee.co.id/AAHFt6ZZFg">
 
     <script>
-        setTimeout(function () {
-            window.location.href = "https://s.shopee.co.id/AAHFt6ZZFg";
-        }, 1000);
+        window.location.replace(
+            "https://s.shopee.co.id/AAHFt6ZZFg"
+        );
     </script>
 </head>
 
 <body>
-    <h2>Mengalihkan ke Shopee...</h2>
-    <p>Mohon tunggu sebentar.</p>
+    <p>Mengarahkan ke halaman produk...</p>
+
+    <p>
+        Jika tidak otomatis berpindah,
+        <a href="https://s.shopee.co.id/AAHFt6ZZFg">
+            klik di sini
+        </a>.
+    </p>
 </body>
 </html>
