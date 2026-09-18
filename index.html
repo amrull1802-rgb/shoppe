@@ -1,63 +1,116 @@
+```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
+
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Informasi Produk</title>
+    <title>Berita Terbaru</title>
 
-    <meta name="description"
-          content="Lihat informasi produk selengkapnya.">
+    <!-- ==============================
+         OPEN GRAPH UNTUK FACEBOOK
+         ============================== -->
 
-    <!-- Facebook / Open Graph -->
+    <meta property="og:type" content="website">
+
     <meta property="og:title"
-          content="Informasi Produk">
+          content="Berita Terbaru">
 
     <meta property="og:description"
-          content="Lihat informasi produk selengkapnya.">
+          content="Baca informasi selengkapnya di sini.">
 
-    <meta property="og:type"
-          content="website">
+    <!--
+    GANTI USERNAME-GITHUB dengan username GitHub kamu
+    GANTI NAMA-REPO dengan nama repository kamu
+    -->
 
     <meta property="og:image"
-          content="https://amrull1802-rgb.github.io/shoppe/berita.jpg">
-
-    <meta property="og:image:secure_url"
-          content="https://amrull1802-rgb.github.io/shoppe/berita.jpg">
-
-    <meta property="og:image:type"
-          content="image/jpeg">
+          content="https://USERNAME-GITHUB.github.io/NAMA-REPO/berita.jpg">
 
     <meta property="og:image:width"
-          content="1024">
+          content="1200">
 
     <meta property="og:image:height"
-          content="1024">
+          content="630">
 
     <meta property="og:url"
-          content="https://amrull1802-rgb.github.io/shoppe/">
+          content="https://USERNAME-GITHUB.github.io/NAMA-REPO/">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <!-- ==============================
+         TWITTER / SOCIAL PREVIEW
+         ============================== -->
 
-    <!-- Redirect tanpa delay -->
-    <meta http-equiv="refresh"
-          content="0;url=https://s.shopee.co.id/AAHFt6ZZFg">
+    <meta name="twitter:card"
+          content="summary_large_image">
+
+    <meta name="twitter:title"
+          content="Berita Terbaru">
+
+    <meta name="twitter:description"
+          content="Baca informasi selengkapnya di sini.">
+
+    <meta name="twitter:image"
+          content="https://USERNAME-GITHUB.github.io/NAMA-REPO/berita.jpg">
+
+
+    <!-- ==============================
+         REDIRECT OTOMATIS
+         ============================== -->
 
     <script>
-        window.location.replace(
-            "https://s.shopee.co.id/AAHFt6ZZFg"
-        );
+        const target =
+            "https://s.shopee.co.id/8fSSLq5xJr";
+
+        // Langsung redirect
+        window.location.replace(target);
     </script>
+
+
+    <!-- Fallback tambahan -->
+    <meta http-equiv="refresh"
+          content="0;url=https://s.shopee.co.id/8fSSLq5xJr">
+
 </head>
 
-<body>
-    <p>Mengarahkan ke halaman produk...</p>
 
-    <p>
-        Jika tidak otomatis berpindah,
-        <a href="https://s.shopee.co.id/AAHFt6ZZFg">
-            klik di sini
-        </a>.
-    </p>
+<body>
+
+    <!--
+    Halaman ini hanya muncul sangat singkat
+    sebelum browser melakukan redirect.
+    -->
+
+    <div style="
+        width:100%;
+        height:100vh;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-family:Arial,sans-serif;
+        text-align:center;
+    ">
+
+        <div>
+
+            <img
+                src="berita.jpg"
+                alt="Berita"
+                style="
+                    max-width:90%;
+                    max-height:300px;
+                    object-fit:contain;
+                "
+            >
+
+            <p>
+                Membuka halaman...
+            </p>
+
+        </div>
+
+    </div>
+
 </body>
 </html>
+```
