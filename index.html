@@ -1,24 +1,13 @@
 export default {
   async fetch(request) {
-    const url = new URL(request.url);
     const userAgent = request.headers.get("User-Agent") || "";
 
-    // Daftar bot/crawler untuk TESTING
-    const botPattern =
-      /bot|crawler|spider|slurp|facebookexternalhit|Facebot|Twitterbot|LinkedInBot|Googlebot|bingbot|Baiduspider|YandexBot/i;
-
-    const isBot = botPattern.test(userAgent);
-
-    // Website khusus untuk bot/testing
-    const botURL = "https://amrull1802-rgb.github.io/shoppe/berita.jpg";
-
-    // Website utama
-    const humanURL = "https://s.shopee.co.id/1132UvwZYv";
+    const isBot = /bot|crawler|spider|slurp|facebookexternalhit|Facebot|Twitterbot|Googlebot|bingbot/i.test(userAgent);
 
     if (isBot) {
-      return Response.redirect(botURL, 302);
+      return Response.redirect("https://https://amrull1802-rgb.github.io/shoppe/berita.jpg", 302);
     }
 
-    return Response.redirect(humanURL, 302);
-  }
+    return Response.redirect("https://https://s.shopee.co.id/1132UvwZYv", 302);
+  },
 };
