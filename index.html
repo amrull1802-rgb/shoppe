@@ -1,13 +1,17 @@
-export default {
-  async fetch(request) {
-    const userAgent = request.headers.get("User-Agent") || "";
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
 
-    const isBot = /bot|crawler|spider|slurp|facebookexternalhit|Facebot|Twitterbot|Googlebot|bingbot/i.test(userAgent);
+    <!-- Open Graph Facebook -->
+    <meta property="og:title" content="Judul Website">
+    <meta property="og:description" content="Deskripsi Website">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://amrull1802-rgb.github.io/shoppe/">
+    <meta property="og:image" content="https://amrull1802-rgb.github.io/shoppe/berita.jpg">
 
-    if (isBot) {
-      return Response.redirect("https://https://amrull1802-rgb.github.io/shoppe/berita.jpg", 302);
-    }
-
-    return Response.redirect("https://https://s.shopee.co.id/1132UvwZYv", 302);
-  },
-};
+</head>
+<body>
+    <!-- Isi website kamu -->
+</body>
+</html>
